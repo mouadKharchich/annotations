@@ -1,0 +1,170 @@
+// add this to calculate image width height
+  ngAfterViewInit() {
+        // Check if the image element reference is defined
+      if (this.image && this.image.nativeElement) {
+          // Access the nativeElement properties
+          const nativeElement = this.image.nativeElement;
+          nativeElement.addEventListener('load', () => {
+           // this.widthImageBase=nativeElement.width;
+          //this.heightImageBase=nativeElement.height;
+          this.getDataAnnotations();
+          });
+      }
+      
+      }
+
+
+// image annotation code;
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { DataAnnotation } from '../modules/annotation.model';
+import { AnnotationService } from '../service/annotation.service';
+
+@Component({
+  selector: 'app-image-annotation',
+  templateUrl: './image-annotation.component.html',
+  styleUrls: ['./image-annotation.component.css']
+})
+export class ImageAnnotationComponent {
+ // Inputs:
+
+ @Input() srcImage?:string;
+ @Input() iconBase?:{width:number,height:number};
+ @Input() imageBase?:{width:number,height:number};
+ @Input() annotations?:DataAnnotation[];
+
+ //attributs initialize 
+ xForIcon: number = 0;
+ yForIcon: number = 0;
+
+ xForPop: number = 0;
+ yForPop: number = 0;
+
+ annotation?: DataAnnotation = { id: -1, colorOfIcon: "" };
+ tableOfAnnotation: DataAnnotation[] = [];
+
+ showForm: boolean = false;
+
+ hoveredMessage: boolean = false;
+ hoverAnnotation?: DataAnnotation | null;
+
+ popFormShow: boolean = false;
+ addCommentStatus: boolean = false;
+
+ outerWidth: number = 0;
+ outerHeight: number = 0;
+
+ @ViewChild('image', { read: ElementRef }) image!: ElementRef;
+
+ constructor(private annotationService: AnnotationService) { }
+
+
+ ngAfterViewInit() {
+   this.getDataAnnotations();
+ }
+
+ getDataAnnotations() {
+   // Fetches data annotations from a service
+   this.annotationService.getDataAnnotation().subscribe((data) => {
+     this.tableOfAnnotation = data;
+     // After receiving the data, recalculates icon dimensions
+     this.reCalculateWithHeightIcon();
+   })
+ }
+
+ @HostListener('window:resize', ['$event'])
+ onResize(event: any) {
+   this.reCalculateWithHeightIcon();
+ }
+
+ // Recalculates the icon dimensions based on the image dimensions and icon Base dimension
+  // Updates the table of annotations with the recalculated dimensions
+ reCalculateWithHeightIcon() {
+   this.tableOfAnnotation = this.tableOfAnnotation.map((item) => {
+     return {
+       ...item,
+       widthIcon: (this.image.nativeElement.width * (this.iconBase?.width || 0) / (this.imageBase?.width ||0)),
+       heightIcon: (this.image.nativeElement.height * (this.iconBase?.height ||0) / (this.imageBase?.height || 0))
+     };
+   });
+
+ }
+ //Add New Annotation to Image ref
+ addAnnotation(event: MouseEvent) {
+
+   //dimension of icon (comment ICON)
+   this.xForIcon = ((event.offsetX * 100) / this.image.nativeElement.width) - 1;
+   this.yForIcon = ((event.offsetY * 100) / this.image.nativeElement.height) - 2;
+
+   //we don't need to stock this variables **?
+   //this dimension for form coordinate (x,y)
+   this.xForPop = this.xForIcon + 2;
+   this.yForPop = this.yForIcon + 2;
+
+   //show popup
+   this.showForm = true;
+   //false means this is the first comment added !
+   this.addCommentStatus = false;
+
+ }
+
+ //add comment to exist annotation in image dimensions
+ addCommentToExistAnnotation(annotation: DataAnnotation) {
+   this.xForPop = annotation?.xPop ?? 0;
+   this.yForPop = annotation?.yPop ?? 0;
+
+   //update data annotation from arg to position form in his dimension X,Y
+   this.annotation = annotation;
+   //show popup
+   this.showForm = true;
+   //true means this is not the first comment added!
+   this.addCommentStatus = true;
+ }
+
+ //action method output from popupForm
+ onAddComment(event: { id: number, comment: string[], numberOfComment: number }) {
+   // Adds a comment to an annotation using the annotation service
+   this.annotationService.addCommentToElement(event.id, event.comment, event.numberOfComment).subscribe(() => {
+     this.getDataAnnotations();
+   });
+ }
+ //cancel form output
+ onCancelPopupForm() {
+   this.showForm = false
+ }
+
+ //save Annotation
+ onSaveAnnotation(annotation: DataAnnotation) {
+   this.annotation = {
+     ...annotation,
+     x: this.xForIcon,
+     y: this.yForIcon,
+     xPop: this.xForPop,
+     yPop: this.yForPop,
+     numberOfComment: annotation.comment?.length,
+     widthIcon: this.iconBase?.width,
+     heightIcon: this.iconBase?.height
+   };
+
+   //add annotation using service
+   this.annotationService.addDataAnnotation(this.annotation).subscribe((res) => {
+     this.getDataAnnotations();
+   });
+
+ }
+
+ //show message in hover event
+ onHoveredMessage(annotation: DataAnnotation) {
+   this.hoverAnnotation = annotation;
+ }
+
+ //hidden message using leave mouse event
+ onMouseLeave() {
+   this.hoverAnnotation = null;
+ }
+ //using this for codition of ngIF to compare between to annotation
+ onHoverIt(annotation: DataAnnotation) {
+   return this.hoverAnnotation == annotation && !this.popFormShow
+ }
+
+
+}

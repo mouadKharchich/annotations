@@ -1,0 +1,71 @@
+{
+  "Data": [
+    {
+      "id": 1,
+      "image": "../../assets/image.jfif",
+      "annotations": [
+        {
+          "colorOfIcon": "#C92910",
+          "comment": [
+            {
+              "id": 1,
+              "content": "ll"
+            },
+            {
+              "id": 2,
+              "content": "mmm"
+            }
+          ],
+          "x": 43.875346260387815,
+          "y": 19.606118546845124,
+          "numberOfComment": 2,
+          "widthIcon": 20,
+          "heightIcon": 20,
+          "id": 1
+        },
+        {
+          "colorOfIcon": "#3CBD28",
+          "comment": [
+            {
+              "id": 1,
+              "content": "klkl"
+            },
+            {
+              "id": 2,
+              "content": "pp"
+            },
+            {
+              "id": 3,
+              "content": "^^^^"
+            }
+          ],
+          "x": 75.0387811634349,
+          "y": 17.88527724665392,
+          "numberOfComment": 3,
+          "widthIcon": 20,
+          "heightIcon": 20,
+          "id": 2
+        },
+        {
+          "colorOfIcon": "#CF3A73",
+          "comment": [
+            {
+              "id": 1,
+              "content": "elemenr"
+            },
+            {
+              "id": 2,
+              "content": "ddd"
+            }
+          ],
+          "x": 41.19178082191781,
+          "y": 32.593572778827976,
+          "numberOfComment": 2,
+          "widthIcon": 20,
+          "heightIcon": 20,
+          "id": 3
+        }
+      ]
+    }
+  ]
+}
