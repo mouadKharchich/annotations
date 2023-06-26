@@ -22,6 +22,7 @@ img {
 
   .popup-message {
     position: absolute;
+    width: 323px;
     padding: 10px;
     font-size: 12px;
     margin-top: 30px;
@@ -34,4 +35,19 @@ img {
   svg{
     cursor: pointer;
     position: absolute;
+  }
+
+  .hoverComment{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .upComment{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .downComment{
+    margin-top:10px
   }

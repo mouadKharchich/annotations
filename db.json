@@ -9,61 +9,43 @@
           "comment": [
             {
               "id": 1,
-              "content": "ll"
+              "content": "lml",
+              "role": "Tool Maker",
+              "date": "21/06/2023, 15:22",
+              "user": "Jette Fenne"
             },
             {
               "id": 2,
-              "content": "mmm"
+              "content": "mlml",
+              "role": "Tool Maker",
+              "date": "21/06/2023, 15:23",
+              "user": "Jette Fenne"
             }
           ],
-          "x": 43.875346260387815,
-          "y": 19.606118546845124,
+          "x": 43.45983379501385,
+          "y": 19.797323135755256,
           "numberOfComment": 2,
           "widthIcon": 20,
           "heightIcon": 20,
           "id": 1
         },
         {
-          "colorOfIcon": "#3CBD28",
-          "comment": [
-            {
-              "id": 1,
-              "content": "klkl"
-            },
-            {
-              "id": 2,
-              "content": "pp"
-            },
-            {
-              "id": 3,
-              "content": "^^^^"
-            }
-          ],
-          "x": 75.0387811634349,
-          "y": 17.88527724665392,
-          "numberOfComment": 3,
-          "widthIcon": 20,
-          "heightIcon": 20,
-          "id": 2
-        },
-        {
           "colorOfIcon": "#CF3A73",
           "comment": [
             {
               "id": 1,
-              "content": "elemenr"
-            },
-            {
-              "id": 2,
-              "content": "ddd"
+              "content": "element3",
+              "role": "Tool Maker",
+              "date": "21/06/2023, 15:54",
+              "user": "Jette Fenne"
             }
           ],
-          "x": 41.19178082191781,
-          "y": 32.593572778827976,
-          "numberOfComment": 2,
+          "x": 75.0387811634349,
+          "y": 16.92925430210325,
+          "numberOfComment": 1,
           "widthIcon": 20,
           "heightIcon": 20,
-          "id": 3
+          "id": 2
         }
       ]
     }

@@ -19,17 +19,16 @@ export class PopupformComponent {
 
   //Variables:
   colors: Color[] = [
-    { id: 1, name: '#C92910' },
-    { id: 2, name: '#296DCC' },
-    { id: 3, name: '#CC3ACF' },
-    { id: 4, name: '#CF3A73' },
-    { id: 5, name: "#3CBD28" },
-    { id: 6, name: "#CC671B" },
-    { id: 7, name: "#1BBDCC" },
-    { id: 8, name: '#C92911' },
-    { id: 9, name: '#296DCD' },
-    { id: 10, name: '#CC3ACC' }
-  ]
+    { id: 1, name: '#F0B44D' },
+    { id: 2, name: '#A38C65' },
+    { id: 3, name: '#C96630' },
+    { id: 4, name: '#D10D0D' },
+    { id: 5, name: "#43A333" },
+    { id: 6, name: "#B4E8AC" },
+    { id: 7, name: "#21A1C4" },
+    { id: 8, name: '#5DCFDE' },
+    { id: 9, name: '#E6C285' }
+    ]
   selectedColor?: Color;
   inputValue: string = '';
   checkmarkIcon: SafeHtml = '';
@@ -55,14 +54,32 @@ export class PopupformComponent {
   //save annotation(comment)
   saveAnnotation() {
     let ok = false;
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+
+    const formattedTime = currentDate.toLocaleTimeString('en-US', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    const formattedDateTime = `${formattedDate}, ${formattedTime}`;
+
     if (this.addCommentStatus) {
       if (this.inputValue.trim() != "") {
         ok = true;
        
         this.addComment.emit({ id: this.annotation?.id || 0, comment: 
           {
-          id:(this.annotation?.comment?.length || 0)+1,
-          content:this.inputValue.trim()
+            id:(this.annotation?.comment?.length || 0)+1,
+            content:this.inputValue.trim(),
+            role:"Tool Maker",
+            date:formattedDateTime,
+            user:"Jette Fenne"
         }  });
         this.cancelPopupForm();
       }
@@ -71,7 +88,10 @@ export class PopupformComponent {
         this.save.emit({ colorOfIcon: (this.selectedColor?.name || ""), comment: [
           {
             id:1,
-            content:this.inputValue.trim()
+            content:this.inputValue.trim(),
+            role:"Tool Maker",
+            date:formattedDateTime,
+            user:"Jette Fenne"
           }
         ] });
         ok = true;

@@ -40,12 +40,17 @@
   
       </svg>
       <div class="popup-message" *ngIf="onHoverIt(annotation)">
-        <span *ngFor="let item of annotation?.comment;let i=index">
-          <span *ngIf="i==0">{{item?.content}}</span>
-          <span *ngIf="i!=0">{{","+item?.content}}</span>
-        </span>
-      </div>
-  
+          <div *ngFor="let item of annotation?.comment;let i=index">
+            <div class="hoverComment">
+              <div class="upComment">
+                <span style="color:#DDD">{{item?.user}}</span>
+                <span style="background-color: blue;color:#FFF;border-radius: 10px; padding:5px">{{item?.role}}</span>
+                <span>{{item?.date}}</span>
+              </div>
+              <div class="downComment">{{item?.content}}</div>
+            </div>
+            <hr>
+          </div>  
     </div>
     </div>
   </div>

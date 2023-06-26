@@ -1,4 +1,7 @@
 export interface CommentType{
     id:number,
-    content:string
+    content:string,
+    date?:string,
+    user?:string,
+    role?:string
 }
